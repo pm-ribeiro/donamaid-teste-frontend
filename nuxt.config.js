@@ -43,7 +43,11 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    '@/plugins/dialog',
+    '@/plugins/representers',
+    '@/plugins/validations',
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -89,9 +93,9 @@ export default {
           success: colors.green.accent3,
         },
         light: {
-          primary: '#212121',
+          primary: '#603285',
           secondary: '#b0bec5',
-          accent: '#8c9eff',
+          accent: '#AF006B',
           error: '#b71c1c',
         },
       },
