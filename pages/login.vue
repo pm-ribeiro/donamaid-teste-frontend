@@ -7,7 +7,7 @@
       width="540"
       min-height="600"
       elevation="5"
-      class="px-8 pt-4 pb-10 login-sheet"
+      class="px-5 pt-4 pb-10 login-sheet"
     >
       <div class="login-sheet__donie-container">
         <v-img
