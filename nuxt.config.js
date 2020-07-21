@@ -73,7 +73,9 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://swapi.dev/api/',
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -100,6 +102,30 @@ export default {
         },
       },
     },
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/users/login',
+            method: 'post',
+            propertyName: 'token',
+          },
+          logout: { url: '/login', method: 'post' },
+          user: false,
+        },
+      },
+    },
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/',
+    },
+  },
+  router: {
+    middleware: ['auth'],
   },
   /*
    ** Build configuration
