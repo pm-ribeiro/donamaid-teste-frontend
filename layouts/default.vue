@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar fixed app color="accent">
+    <v-app-bar fixed app flat color="accent">
       <nuxt-link to="/">
         <v-img
           :src="$representers.getAssetsImage(donamaidLogo)"

@@ -1,95 +1,147 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
+  <v-row no-gutters align="start" justify="start">
+    <div
+      v-if="isHydrated && $vuetify.breakpoint.smAndUp"
+      class="background__outer-shape"
+    >
+      <div class="background__inner-shape"></div>
+    </div>
+    <v-row no-gutters align="start" justify="center" class="fill-height root">
+      <v-col
+        cols="12"
+        xl="8"
+        lg="8"
+        :class="
+          isHydrated && $vuetify.breakpoint.smAndUp
+            ? 'left-column'
+            : 'px-3 pt-6'
+        "
+        style="border: 1px solid orange;"
+      >
+        <v-row no-gutters align="start" justify="start">
+          <v-col cols="6" xl="4" lg="4">
+            <v-avatar color="white" :size="avatarSize">
+              <v-img :src="$representers.getAssetsImage('donie.svg')"></v-img>
+            </v-avatar>
+          </v-col>
+          <v-col cols="6" xl="8" lg="8">
+            <div
+              :class="
+                isHydrated && $vuetify.breakpoint.mobile
+                  ? 'black--text ml-1 mt-10'
+                  : 'white--text ml-12 mt-10'
+              "
             >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
+              <h1 class="text-h6 text-xl-h3 text-lg-h5">
+                Patrícia Moreno Ribeiro
+              </h1>
+              <h2 class="text-subtitle-1 text-xl-h5 text-lg-h6 mt-2">
+                Com a donamaid desde XXXX
+              </h2>
+            </div>
+          </v-col>
+        </v-row>
+        <v-row
+          no-gutters
+          align="start"
+          justify="start"
+          class="mt-5 mt-lg-n16 mt-xl-n16"
+          style="border: 1px solid green;"
+        >
+          <v-col
+            cols="12"
+            xl="7"
+            lg="7"
+            offset-xl="4"
+            offset-lg="4"
+            class="pl-xl-10 pl-lg-10"
+            style="border: 1px dashed red;"
           >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-  </v-layout>
+            <p class="ma-0 pa-0 text-xl-h6 font-weight-regular">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero,
+              eaque. Voluptatibus sed autem, veniam expedita assumenda magnam
+              incidunt impedit cumque, rerum enim quasi quisquam nesciunt
+              repudiandae dolore veritatis molestiae fugit.
+              <br />
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero,
+              eaque. Voluptatibus sed autem, veniam expedita assumenda magnam
+              incidunt impedit cumque, rerum enim quasi quisquam nesciunt
+              repudiandae dolore veritatis molestiae fugit.
+              <br />
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero,
+              eaque. Voluptatibus sed autem, veniam expedita assumenda magnam
+              incidunt impedit cumque, rerum enim quasi quisquam nesciunt
+              repudiandae dolore veritatis molestiae fugit.
+            </p>
+          </v-col>
+        </v-row>
+      </v-col>
+      <v-col cols="12" xl="4" lg="4" style="border: 1px solid blue;">Olá</v-col>
+    </v-row>
+  </v-row>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
 export default {
-  components: {
-    Logo,
-    VuetifyLogo,
+  data() {
+    return {
+      isHydrated: false,
+    }
+  },
+  computed: {
+    avatarSize() {
+      if (this.$vuetify.breakpoint.xl) {
+        return 380
+      } else if (this.$vuetify.breakpoint.lg) {
+        return 280
+      } else if (this.$vuetify.breakpoint.mobile) {
+        return 180
+      } else {
+        return 0
+      }
+    },
+  },
+  mounted() {
+    this.isHydrated = true
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.root {
+  position: relative;
+  z-index: 1;
+  border: 1px solid blue;
+  .left-column {
+    padding-top: 60px;
+    padding-left: 60px;
+    @media only screen and (min-width: 1920px) {
+      padding-top: 100px;
+      padding-left: 100px;
+    }
+  }
+}
+.background {
+  &__outer-shape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 60%;
+    background-color: #af006b;
+    overflow: hidden;
+  }
+
+  &__inner-shape {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: 0;
+    width: 150%;
+    height: 100%;
+    background-color: white;
+    transform: rotate(-8deg);
+  }
+}
+</style>
