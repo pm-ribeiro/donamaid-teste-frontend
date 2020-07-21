@@ -11,7 +11,7 @@
       </nuxt-link>
       <v-spacer></v-spacer>
 
-      <v-btn v-if="loggedIn" text color="primary" @click="$auth.logout()">
+      <v-btn v-if="loggedIn" text color="primary" @click="logout()">
         sair
       </v-btn>
 

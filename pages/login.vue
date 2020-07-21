@@ -29,21 +29,29 @@
 
         <v-text-field
           v-model="email"
-          class="login__fields"
+          class="login-sheet__text-field"
           label="E-mail"
           type="email"
           :rules="[$validations.required('e-mail'), $validations.email()]"
-        ></v-text-field>
+        >
+          <template v-slot:prepend-inner>
+            <v-icon class="ml-1 mr-3 mb-2">mdi-account</v-icon>
+          </template>
+        </v-text-field>
 
         <v-text-field
           v-model="password"
-          class="login__fields my-3"
+          class="login-sheet__text-field my-3"
           label="Senha"
           :rules="[$validations.required('senha')]"
           :type="showPassword ? 'text' : 'password'"
           :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
           @click:append="showPassword = !showPassword"
-        ></v-text-field>
+        >
+          <template v-slot:prepend-inner>
+            <v-icon class="ml-1 mr-3 mb-2">mdi-lock</v-icon>
+          </template>
+        </v-text-field>
 
         <v-btn
           color="primary"
@@ -73,32 +81,16 @@ export default {
     }
   },
   methods: {
-    async login() {
-      try {
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        })
-        this.$router.push('/')
-      } catch (error) {
-        console.log(error)
-      }
-    },
+    login() {},
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.login__fields {
-  width: 384px;
-}
-.rounded {
-  border-radius: 36px !important;
-}
-
 .login-sheet {
+  &.rounded {
+    border-radius: 36px !important;
+  }
   &__donie {
     &-container {
       position: relative;
@@ -121,7 +113,9 @@ export default {
     padding: 48px 36px 24px 36px;
     margin: 0 24px 24px 24px;
     background-color: white;
-    // border: 1px dashed red;
+  }
+  &__text-field {
+    width: 384px;
   }
 }
 </style>
