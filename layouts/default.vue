@@ -61,6 +61,6 @@ export default {
 }
 
 .fill-height {
-  height: calc(100vh - 124px);
+  min-height: calc(100vh - 124px);
 }
 </style>
