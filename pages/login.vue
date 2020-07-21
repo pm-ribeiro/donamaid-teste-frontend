@@ -101,7 +101,7 @@ export default {
     &-image {
       z-index: 3;
       position: absolute;
-      bottom: -24px;
+      bottom: -27px;
     }
   }
   &__inner-container {
