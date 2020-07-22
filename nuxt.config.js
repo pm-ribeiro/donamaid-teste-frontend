@@ -103,30 +103,30 @@ export default {
       },
     },
   },
-  auth: {
-    strategies: {
-      local: {
-        endpoints: {
-          login: {
-            url: '/users/login',
-            method: 'post',
-            propertyName: 'token',
-          },
-          logout: { url: '/login', method: 'post' },
-          user: false,
-        },
-      },
-    },
-    redirect: {
-      login: '/login',
-      logout: '/login',
-      callback: '/login',
-      home: '/',
-    },
-  },
-  router: {
-    middleware: ['auth'],
-  },
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       endpoints: {
+  //         login: {
+  //           url: '/users/login',
+  //           method: 'post',
+  //           propertyName: 'token',
+  //         },
+  //         logout: { url: '/login', method: 'post' },
+  //         user: false,
+  //       },
+  //     },
+  //   },
+  //   redirect: {
+  //     login: '/login',
+  //     logout: '/login',
+  //     callback: '/login',
+  //     home: '/',
+  //   },
+  // },
+  // router: {
+  //   middleware: ['auth'],
+  // },
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/

@@ -81,7 +81,20 @@ export default {
     }
   },
   methods: {
-    login() {},
+    // async
+    login() {
+      // try {
+      // await this.$auth.loginWith('local', {
+      //   data: {
+      //     email: this.email,
+      //     password: this.password,
+      //   },
+      // })
+      //   this.$router.push('/')
+      // } catch (error) {
+      //   console.log(error)
+      // }
+    },
   },
 }
 </script>
