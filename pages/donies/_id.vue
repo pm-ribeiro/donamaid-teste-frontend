@@ -132,7 +132,10 @@ export default {
     async fetchDonieData() {
       try {
         this.loading = true
-        const donie = await this.$axios.get('/people/' + this.donieId)
+        const donie = await this.$axios.get(
+          'https://swapi.dev/api/people/' + this.donieId
+        )
+
         this.donie.name = donie.data.name
         this.donie.timeOfCompany = this.$representers.ddmmyyyy(
           donie.data.created
