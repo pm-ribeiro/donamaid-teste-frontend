@@ -1,5 +1,23 @@
 <template>
-  <v-col cols="12" class="pa-0 px-8">
+  <v-row
+    v-if="loading"
+    no-gutters
+    align="center"
+    justify="center"
+    class="fill-height"
+  >
+    <div class="text-center">
+      <h2>Carregando dados...</h2>
+      <v-progress-circular
+        :width="10"
+        :size="200"
+        indeterminate
+        color="accent"
+        class="mt-8"
+      ></v-progress-circular>
+    </div>
+  </v-row>
+  <v-col v-else cols="12" class="pa-0 px-8">
     <v-row
       no-gutters
       align="center"
@@ -8,6 +26,7 @@
     >
       <h1 class="text-h4">Donies</h1>
     </v-row>
+
     <!-- professionals list -->
     <v-row no-gutters align="center" justify="start">
       <v-col
@@ -61,6 +80,7 @@ export default {
     return {
       isHydrated: false,
       donies: [],
+      loading: false,
     }
   },
   beforeMount() {
@@ -73,8 +93,10 @@ export default {
     async fetchData() {
       try {
         if (this.$login.loggedIn()) {
+          this.loading = true
           const donies = await this.$axios.get('/people/')
           this.donies = donies.data.results
+          this.loading = false
         } else {
           this.$router.push('/login')
         }

@@ -56,7 +56,17 @@
             offset-lg="4"
             class="pl-xl-10 pl-lg-10"
           >
-            <p class="ma-0 pa-0 text-xl-h6 font-weight-regular">
+            <div v-if="loading" class="text-center">
+              <h3 class="font-weight-regular">Carregando dados...</h3>
+              <v-progress-circular
+                :width="5"
+                :size="80"
+                indeterminate
+                color="accent"
+                class="mt-8"
+              ></v-progress-circular>
+            </div>
+            <p v-else class="ma-0 pa-0 text-xl-h6 font-weight-regular">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero,
               eaque. Voluptatibus sed autem, veniam expedita assumenda magnam
               incidunt impedit cumque, rerum enim quasi quisquam nesciunt
@@ -89,6 +99,7 @@
 export default {
   data() {
     return {
+      loading: false,
       donieId: this.$route.params.id,
       donie: {
         name: '',
@@ -120,11 +131,13 @@ export default {
   methods: {
     async fetchDonieData() {
       try {
+        this.loading = true
         const donie = await this.$axios.get('/people/' + this.donieId)
         this.donie.name = donie.data.name
         this.donie.timeOfCompany = this.$representers.ddmmyyyy(
           donie.data.created
         )
+        this.loading = false
       } catch (error) {
         console.log(error)
       }
