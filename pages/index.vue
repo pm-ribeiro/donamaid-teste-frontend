@@ -1,6 +1,5 @@
 <template>
   <v-col cols="12" class="pa-0 px-8">
-    >> {{ $login.loggedIn() }}
     <v-row
       no-gutters
       align="center"
@@ -9,6 +8,7 @@
     >
       <h1 class="text-h4">Donies</h1>
     </v-row>
+    <!-- professionals list -->
     <v-row no-gutters align="center" justify="start">
       <v-col
         v-for="(donie, index) in donies"
@@ -24,7 +24,7 @@
           color="#F8F8F8"
           class="py-6 text-center"
         >
-          <nuxt-link :to="`/donies/${getId(donie.url)}`">
+          <nuxt-link :to="`/donies/${$representers.getId(donie.url)}`">
             <v-avatar
               color="white"
               :size="isHydrated && $vuetify.breakpoint.xl ? '264' : '164'"
@@ -70,22 +70,17 @@ export default {
     this.isHydrated = true
   },
   methods: {
-    getId(donieURL) {
-      let pathname = new URL(donieURL).pathname
-      pathname = pathname.split('/')
-      return pathname[3]
-    },
     async fetchData() {
       try {
-        const donies = await this.$axios.get('/people/')
-        this.donies = donies.data.results
-        console.log(donies)
+        if (this.$login.loggedIn()) {
+          const donies = await this.$axios.get('/people/')
+          this.donies = donies.data.results
+        } else {
+          this.$router.push('/login')
+        }
       } catch (error) {
         console.log(error)
       }
-    },
-    doniePage(id) {
-      this.$router.push('/people/' + id)
     },
   },
 }

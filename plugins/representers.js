@@ -28,7 +28,6 @@ export default function ({ store }, inject) {
   }
 
   function ddmmyyyy(d) {
-    console.log(d)
     const date = new Date(d)
     return `${('0' + date.getDate()).slice(-2)}/${(
       '0' +
