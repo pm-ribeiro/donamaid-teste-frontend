@@ -133,7 +133,7 @@ export default {
       try {
         this.loading = true
         const donie = await this.$axios.get(
-          'https://swapi.dev/api/people/' + this.donieId
+          'https://swapi.dev/api/people/' + this.donieId + '/'
         )
 
         this.donie.name = donie.data.name
