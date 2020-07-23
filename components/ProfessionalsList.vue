@@ -53,7 +53,7 @@ export default {
   methods: {
     async fetchDonies() {
       try {
-        const donies = await this.$axios.get('/people/')
+        const donies = await this.$axios.get('https://swapi.dev/api/people/')
         this.otherDonies = donies.data.results
       } catch (error) {
         console.log(error)

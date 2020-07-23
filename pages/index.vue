@@ -94,7 +94,7 @@ export default {
       try {
         if (this.$login.loggedIn()) {
           this.loading = true
-          const donies = await this.$axios.get('/people/')
+          const donies = await this.$axios.get('https://swapi.dev/api/people/')
           this.donies = donies.data.results
           this.loading = false
         } else {

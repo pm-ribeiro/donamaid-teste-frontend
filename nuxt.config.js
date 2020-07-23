@@ -82,7 +82,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: 'https://swapi.dev/api',
+    // baseURL: 'https://swapi.dev/api',
   },
   /*
    ** vuetify module configuration
