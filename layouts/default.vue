@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar fixed app flat color="accent">
-      <nuxt-link to="/">
+      <nuxt-link :to="$login.loggedIn() ? '/' : '/login'">
         <v-img
           :src="$representers.getAssetsImage(donamaidLogo)"
           alt="Donamaid"
@@ -11,21 +11,8 @@
       </nuxt-link>
       <v-spacer></v-spacer>
 
-      <v-btn v-if="loggedIn" text color="primary" @click="logout()">
+      <v-btn v-if="$login.loggedIn()" text color="white" @click="logout()">
         sair
-      </v-btn>
-
-      <v-btn
-        v-if="loggedIn"
-        text
-        color="primary"
-        icon
-        class="ml-8 mr-6"
-        @click="$vuetify.theme.dark = !$vuetify.theme.dark"
-      >
-        <v-icon>
-          {{ $vuetify.theme.dark ? 'mdi-brightness-2' : 'mdi-brightness-7' }}
-        </v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -44,12 +31,18 @@
 export default {
   data() {
     return {
-      loggedIn: false,
+      loggedIn: this.$route.query.loggedIn,
     }
   },
   computed: {
     donamaidLogo() {
       return 'donamaid-logo-branco.svg'
+    },
+  },
+  methods: {
+    logout() {
+      this.$login.logout()
+      this.$router.push('/login')
     },
   },
 }

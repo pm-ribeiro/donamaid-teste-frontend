@@ -81,19 +81,9 @@ export default {
     }
   },
   methods: {
-    // async
     login() {
-      // try {
-      // await this.$auth.loginWith('local', {
-      //   data: {
-      //     email: this.email,
-      //     password: this.password,
-      //   },
-      // })
-      //   this.$router.push('/')
-      // } catch (error) {
-      //   console.log(error)
-      // }
+      this.$login.login()
+      this.$router.push('/')
     },
   },
 }

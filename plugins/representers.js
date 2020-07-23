@@ -6,6 +6,11 @@ const masks = {
 }
 
 export default function ({ store }, inject) {
+  function getId(url) {
+    let pathname = new URL(url).pathname
+    pathname = pathname.split('/')
+    return pathname[3]
+  }
   function getAssetsImage(path) {
     return path ? require(`@/assets/${path}`) : ''
   }
@@ -23,6 +28,7 @@ export default function ({ store }, inject) {
   }
 
   function ddmmyyyy(d) {
+    console.log(d)
     const date = new Date(d)
     return `${('0' + date.getDate()).slice(-2)}/${(
       '0' +
@@ -34,6 +40,7 @@ export default function ({ store }, inject) {
     ddmmyyyy,
     age,
     getAssetsImage,
+    getId,
     masks,
   })
 }

@@ -34,10 +34,10 @@
               "
             >
               <h1 class="text-h6 text-xl-h3 text-lg-h5">
-                Patrícia Moreno Ribeiro
+                {{ donie.name }}
               </h1>
               <h2 class="text-subtitle-1 text-xl-h5 text-lg-h6 mt-2">
-                Com a donamaid desde XXXX
+                Com a donamaid desde {{ donie.timeOfCompany }}
               </h2>
             </div>
           </v-col>
@@ -67,7 +67,7 @@
 
             <v-row no-gutters align="center" justify="center" class="mt-16">
               <v-btn color="primary" rounded x-large depressed>
-                Quero contratar XXXXXX
+                Quero contratar {{ donie.name }}
               </v-btn>
             </v-row>
           </v-col>
@@ -86,28 +86,29 @@
           style="overflow: auto;"
           class="rounded mb-lg-n10 mb-xl-2"
         >
-          <template v-for="(item, index) in items">
-            <v-subheader
-              v-if="item.header"
-              :key="item.header"
-              v-text="item.header"
-            ></v-subheader>
+          <v-subheader>Outros profissionais</v-subheader>
+          <template v-for="(item, index) in otherDonies">
+            <v-divider v-if="index > 0" :key="index" inset></v-divider>
 
-            <v-divider
-              v-else-if="item.divider"
-              :key="index"
-              :inset="item.inset"
-            ></v-divider>
-
-            <v-list-item v-else :key="item.title" @click="a = true">
+            <v-list-item
+              :key="item.title"
+              :to="`/donies/${$representers.getId(item.url)}`"
+            >
               <v-list-item-avatar>
-                <v-img :src="item.avatar"></v-img>
+                <v-img
+                  :src="
+                    item.avatar
+                      ? item.avatar
+                      : $representers.getAssetsImage('default_avatar.png')
+                  "
+                ></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title> {{ item.title }} </v-list-item-title>
+                <v-list-item-title> {{ item.name }} </v-list-item-title>
                 <v-list-item-subtitle>
-                  {{ item.subtitle }}
+                  Com a Donamaid desde
+                  {{ $representers.ddmmyyyy(item.created) }}
                 </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -122,51 +123,14 @@
 export default {
   data() {
     return {
+      donieId: this.$route.params.id,
+      donie: {
+        name: '',
+        timeOfCompany: '',
+        avatarUrl: '',
+      },
       isHydrated: false,
-      items: [
-        { header: 'Outros profissionais' },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Fulano 1',
-          subtitle: 'Na donamaid desde XXXX',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Fulano 2',
-          subtitle: 'Na donamaid desde XXXX',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Fulano 2',
-          subtitle: 'Na donamaid desde XXXX',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Fulano 2',
-          subtitle: 'Na donamaid desde XXXX',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Fulano 2',
-          subtitle: 'Na donamaid desde XXXX',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Fulano 2',
-          subtitle: 'Na donamaid desde XXXX',
-        },
-        { divider: true, inset: true },
-        {
-          avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-          title: 'Fulano 2',
-          subtitle: 'Na donamaid desde XXXX',
-        },
-      ],
+      otherDonies: [],
     }
   },
   computed: {
@@ -182,8 +146,33 @@ export default {
       }
     },
   },
+  beforeMount() {
+    this.fetchDonieData()
+    this.fetchDonies()
+  },
   mounted() {
     this.isHydrated = true
+  },
+  methods: {
+    async fetchDonieData() {
+      try {
+        const donie = await this.$axios.get('/people/' + this.donieId)
+        this.donie.name = donie.data.name
+        this.donie.timeOfCompany = this.$representers.ddmmyyyy(
+          donie.data.created
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async fetchDonies() {
+      try {
+        const donies = await this.$axios.get('/people/')
+        this.otherDonies = donies.data.results
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 }
 </script>

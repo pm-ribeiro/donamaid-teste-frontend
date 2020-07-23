@@ -1,5 +1,6 @@
 <template>
   <v-col cols="12" class="pa-0 px-8">
+    >> {{ $login.loggedIn() }}
     <v-row
       no-gutters
       align="center"
@@ -23,7 +24,7 @@
           color="#F8F8F8"
           class="py-6 text-center"
         >
-          <nuxt-link :to="`/donies/${index}`">
+          <nuxt-link :to="`/donies/${getId(donie.url)}`">
             <v-avatar
               color="white"
               :size="isHydrated && $vuetify.breakpoint.xl ? '264' : '164'"
@@ -31,9 +32,9 @@
               <v-img
                 id="activator-button"
                 :src="
-                  donie.url == 'default_avatar'
-                    ? $representers.getAssetsImage('default_avatar.png')
-                    : donie.url
+                  donie.image
+                    ? donie.image
+                    : $representers.getAssetsImage('default_avatar.png')
                 "
                 alt="Profile picture"
               ></v-img>
@@ -44,7 +45,10 @@
             {{ donie.name }}
           </h2>
 
-          <span>Com a donamaid desde {{ donie.companyTime }}</span>
+          <span>
+            Com a donamaid desde
+            {{ $representers.ddmmyyyy(donie.created) }}
+          </span>
         </v-sheet>
       </v-col>
     </v-row>
@@ -56,47 +60,33 @@ export default {
   data() {
     return {
       isHydrated: false,
-      donies: [
-        {
-          name: 'fulano 1',
-          companyTime: '2018',
-          url: 'default_avatar',
-        },
-        {
-          name: 'fulano 1',
-          companyTime: '2018',
-          url: 'default_avatar',
-        },
-        {
-          name: 'fulano 1',
-          companyTime: '2018',
-          url: 'default_avatar',
-        },
-        {
-          name: 'fulano 1',
-          companyTime: '2018',
-          url: 'default_avatar',
-        },
-        {
-          name: 'fulano 1',
-          companyTime: '2018',
-          url: 'default_avatar',
-        },
-        {
-          name: 'fulano 1',
-          companyTime: '2018',
-          url: 'default_avatar',
-        },
-        {
-          name: 'fulano 1',
-          companyTime: '2018',
-          url: 'default_avatar',
-        },
-      ],
+      donies: [],
     }
+  },
+  beforeMount() {
+    this.fetchData()
   },
   mounted() {
     this.isHydrated = true
+  },
+  methods: {
+    getId(donieURL) {
+      let pathname = new URL(donieURL).pathname
+      pathname = pathname.split('/')
+      return pathname[3]
+    },
+    async fetchData() {
+      try {
+        const donies = await this.$axios.get('/people/')
+        this.donies = donies.data.results
+        console.log(donies)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    doniePage(id) {
+      this.$router.push('/people/' + id)
+    },
   },
 }
 </script>
