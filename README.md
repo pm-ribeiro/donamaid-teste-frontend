@@ -26,6 +26,12 @@ Todos os elementos de imagem para compor o layout se encontram na pasta Assets
 Nossa stack é VueJS. Porém, não é necessário realizar o teste nesse framework, fique à vontade. 
 Prezamos pelo conhecimento e sabemos que linguagens são ferramentas que podem ser aprendidas.
 
+# Observações:
+Para fins de demonstração um falso login foi criado, seguem abaixo as credenciais.
+
+email: teste@donamaid.com
+
+senha: '123456'
 
 ## Build Setup
 
