@@ -3,7 +3,6 @@
     outlined
     rounded
     color="#EDEDED"
-    :width="isHydrated && $vuetify.breakpoint.mobile ? '' : '540'"
     min-height="600"
     elevation="5"
     class="px-5 pt-4 pb-10 login-sheet"
